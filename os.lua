@@ -1,84 +1,88 @@
 os = {}
 
 ---Returns the approximate CPU time used by the program, in seconds.
----@return number
+---@return number # CPU time used by the program, in seconds.
 function os.clock() end
 
 ---Returns a string or a table containing date and time, formatted according to the given string format.
 ---@param format string? # The format string (default: "%c")
 ---@param time integer|string? # The time to be formatted (default: current time)
----@return string|table
+---@return string|table # Formatted date and time string or a table.
 function os.date(format, time) end
 
----Returns the difference in seconds between times t2 and t1 (t2-t1).
----@param t2 number
----@param t1 number
----@return number
-function os.difftime(t2, t1) end
+---Returns the difference in seconds between two times.
+---@param t1 number # The first time.
+---@param t2 number # The second time.
+---@return number # The difference in seconds between t1 and t2.
+function os.difftime(t1, t2) end
 
----Executes an operating system command and returns the status code.
----@param command string? # The command to execute
----@return boolean|integer # If command is nil, returns true if a shell is available
----@return string? # Error message if execution failed
----@return integer? # Exit type (exit, signal, etc.)
+---This function is disabled.
+---@param command string? # The command to execute.
+---@return nil # Always nil.
+---@return string # Always "Permission denied".
+---@return integer # Always a `fx::Lua_EACCES` error code.
 function os.execute(command) end
 
----Terminates the execution of the calling program.
----@param code boolean|integer? # The exit code (default: true)
-function os.exit(code) end
-
----Returns the value of the environment variable varname.
----@param varname string
----@return string?
+---Gets the value of the environment variable `varname`.
+---@param varname string # The name of the environment variable to retrieve.
+---@return string? # The value of the environment variable, or nil if the variable is not defined.
 function os.getenv(varname) end
 
----Deletes a file or directory.
----@param filename string
----@return boolean # true on success
----@return string? # Error message on failure
+---Creates a new directory.
+---@param dirname string # The path to the new directory.
+---@return boolean? # Returns true if the directory was created successfully, otherwise nil.
+---@return string? # Error message on failure.
+---@return integer? # Error code on failure.
+function os.createdir(dirname) end
+
+---Removes the specified file.
+---@param filename string # The path to the file to be removed.
+---@return boolean? # Returns true if the file was removed successfully, otherwise nil.
+---@return string? # Error message on failure.
+---@return integer? # Error code on failure.
 function os.remove(filename) end
 
----Renames a file or directory.
----@param oldname string
----@param newname string
----@return boolean # true on success
----@return string? # Error message on failure
+---Renames a file.
+---@param oldname string # The current name of the file.
+---@param newname string # The new name for the file.
+---@return boolean? # Returns true if the file was renamed successfully, otherwise nil.
+---@return string? # Error message on failure.
+---@return integer? # Error code on failure.
 function os.rename(oldname, newname) end
 
----Sets the locale for the program.
----@param locale string? # The locale to set (nil to get current locale)
----@param category string? # The category to set (default: "all")
----@return string # The name of the new locale or nil if the request cannot be honored
+---This function does not set the locale, it only returns the passed locale string.
+---@param locale string? # The locale to be set.
+---@param category string? # The locale category to be set (default: "all").
+---@return string # Returns the passed locale.
 function os.setlocale(locale, category) end
 
----Returns the current time in seconds since epoch.
----@param table table? # Table to fill with time values
----@return integer # Seconds since epoch
----@return table? # Table with time values if table parameter was provided
+---Returns the current time as a number.
+---@param table table? # A table containing date and time fields.
+---@return number # The current time.
 function os.time(table) end
 
----Returns a string with a filename that can be used for a temporary file.
----@return string
+---Returns a temporary file name.
+---@return string # A temporary file name.
 function os.tmpname() end
 
----Calculates the difference between two time values.
----@param end_time integer
----@param start_time integer
----@return integer # The time difference
-function os.deltatime(end_time, start_time) end
+---Returns the delta between two microtime calls
+---@param endtime integer # End time
+---@param starttime integer # Start time
+---@return integer # Delta time between the 2 numbers
+function os.deltatime(endtime, starttime) end
 
 ---Returns the current time in microseconds.
----@return integer
+---@return integer # The current time in microseconds.
 function os.microtime() end
 
 ---Returns the current time in nanoseconds.
----@return integer
+---@return integer # The current time in nanoseconds.
 function os.nanotime() end
 
----Returns the current CPU timestamp counter value.
----@return integer
+---Returns the current tick count.
+---@return integer # The current tick count.
 function os.rdtsc() end
 
----Returns the current CPU timestamp counter value and processor ID.
----@return integer
+---Returns the current tick count and auxiliary value.
+---@return integer # The current tick count.
 function os.rdtscp() end
