@@ -1,5 +1,5 @@
 -- Auto generated
--- Last updated: Sun, 06 Apr 2025 14:09:39 GMT
+-- Last updated: Thu, 19 Jun 2025 00:45:39 GMT
 
 --- @param value number
 --- @return any
@@ -881,7 +881,7 @@ function ApplyDamageToPed(ped, damageAmount, armorFirst) end
 --- @param p13 boolean
 function ApplyForceToEntity(entity, forceType, x, y, z, offX, offY, offZ, boneIndex, isDirectionRel, ignoreUpVec, isForceRel, p12, p13) end
 
---- Applies a force to the specified entity. cpp enum eForceType { MinForce = 0, MaxForceRot = 1, MinForce2 = 2, MaxForceRot2 = 3, ForceNoRot = 4, ForceRotPlusForce = 5 } Research/documentation on the gtaforums can be found here and here. **This is the server-side RPC native equivalent of the client native APPLY_FORCE_TO_ENTITY.**
+--- cpp enum eApplyForceTypes { APPLY_TYPE_FORCE = 0, APPLY_TYPE_IMPULSE = 1, APPLY_TYPE_EXTERNAL_FORCE = 2, APPLY_TYPE_EXTERNAL_IMPULSE = 3, APPLY_TYPE_TORQUE = 4, APPLY_TYPE_ANGULAR_IMPULSE = 5 } **This is the server-side RPC native equivalent of the client native APPLY_FORCE_TO_ENTITY.**
 --- @param entity integer
 --- @param forceType integer
 --- @param x number
@@ -890,13 +890,13 @@ function ApplyForceToEntity(entity, forceType, x, y, z, offX, offY, offZ, boneIn
 --- @param offX number
 --- @param offY number
 --- @param offZ number
---- @param boneIndex integer
---- @param isDirectionRel boolean
---- @param ignoreUpVec boolean
---- @param isForceRel boolean
---- @param p12 boolean
---- @param p13 boolean
-function ApplyForceToEntity(entity, forceType, x, y, z, offX, offY, offZ, boneIndex, isDirectionRel, ignoreUpVec, isForceRel, p12, p13) end
+--- @param nComponent integer
+--- @param bLocalForce boolean
+--- @param bLocalOffset boolean
+--- @param bScaleByMass boolean
+--- @param bPlayAudio boolean
+--- @param bScaleByTimeWarp boolean
+function ApplyForceToEntity(entity, forceType, x, y, z, offX, offY, offZ, nComponent, bLocalForce, bLocalOffset, bScaleByMass, bPlayAudio, bScaleByTimeWarp) end
 
 --- @param entity integer
 --- @param forceType integer
@@ -3376,6 +3376,11 @@ function DisablePlayerVehicleRewards(player) end
 --- @param toggle boolean
 function DisablePoliceRestart(policeIndex, toggle) end
 
+--- Disables the specified `rawKeyIndex`, making it not trigger the regular `IS_RAW_KEY_*` natives. Virtual key codes can be found here
+--- @param rawKeyIndex integer
+--- @return any
+function DisableRawKeyThisFrame(rawKeyIndex) end
+
 --- This will disable the ability to make camera changes in R\* Editor.
 function DisableRockstarEditorCameraChanges() end
 
@@ -3740,6 +3745,11 @@ function DoesTextBlockExist(gxt) end
 --- @param gxt string
 --- @return any
 function DoesTextLabelExist(gxt) end
+
+--- In compare to `0x31DC8D3F216D8509` return true if texture its created when `0x31DC8D3F216D8509` return true if you put there any id in valid range
+--- @param textureId integer
+--- @return any
+function DoesTextureExist(textureId) end
 
 --- @param modifierName string
 --- @param varName string
@@ -4867,6 +4877,7 @@ function EnsureEntityStateBag(entity) end
 --- Enters cursor mode, suppressing mouse movement to the game and displaying a mouse cursor instead. This function supports SDK infrastructure and is not intended to be used directly from your code.
 function EnterCursorMode() end
 
+--- Depending on your use case you may need to use `add_acl resource.<your_resource_name> command.<command_name> allow` to use this native in your resource.
 --- @param commandString string
 function ExecuteCommand(commandString) end
 
@@ -5190,6 +5201,11 @@ function ForceUseAudioGameObject(vehicle, gameObjectName) end
 --- @param vehicle integer
 --- @param force boolean
 function ForceVehicleEngineSynth(vehicle, force) end
+
+--- An internal function for converting a stack trace object to a string.
+--- @param traceData table
+--- @return any
+function FormatStackTrace(traceData) end
 
 function FreeMemoryForHighQualityPhoto() end
 
@@ -5905,6 +5921,11 @@ function GetCurrentRadioTrackPlaybackTime(radioStationName) end
 --- @return any
 function GetCurrentResourceName() end
 
+--- Gets the current screen resolution. lua local width, height = GetCurrentScreenResolution() print(string.format("Current screen resolution: %dx%d", width, height))
+--- @return integer
+--- @return integer
+function GetCurrentScreenResolution() end
+
 --- @return any
 function GetCurrentScriptedConversationLine() end
 
@@ -6052,6 +6073,17 @@ function GetDriftTyresEnabled(vehicle) end
 --- @param duiObject integer
 --- @return any
 function GetDuiHandle(duiObject) end
+
+--- ### Supported types * \[1] : Peds (including animals) and players. * \[2] : Vehicles. * \[3] : Objects (props), doors, and projectiles. ### Coordinates need to be send unpacked (x,y,z) lua -- Define the allowed model hashes local allowedModelHashes = { GetHashKey("p_crate03x"), GetHashKey("p_crate22x") } -- Get the player's current coordinates local playerCoords = GetEntityCoords(PlayerPedId()) -- Retrieve all entities of type Object (type 3) within a radius of 10.0 units -- that match the allowed model hashes -- and sort output entities by distance local entities = GetEntitiesInRadius(playerCoords.x, playerCoords.y, playerCoords.z, 10.0, 3, true, allowedModelHashes) -- Iterate through the list of entities and print their ids for i = 1, #entities do local entity = entities[i] print(entity) end
+--- @param x number
+--- @param y number
+--- @param z number
+--- @param radius number
+--- @param entityType integer
+--- @param sortByDistance boolean
+--- @param models table
+--- @return any
+function GetEntitiesInRadius(x, y, z, radius, entityType, sortByDistance, models) end
 
 --- **Experimental**: This native may be altered or removed in future versions of CitizenFX without warning. Returns the memory address of an entity. This native is intended for singleplayer debugging, and may not be available during multiplayer.
 --- @param entity integer
@@ -6333,6 +6365,10 @@ function GetEntityProofs(entity) end
 --- @return number
 --- @return number
 function GetEntityQuaternion(entity) end
+
+--- @param entity integer
+--- @return any
+function GetEntityRemoteSyncedScenesAllowed(entity) end
 
 --- Displays the current ROLL axis of the entity [-180.0000/180.0000+] (Sideways Roll) such as a vehicle tipped on its side
 --- @param entity integer
@@ -7424,6 +7460,10 @@ function GetMinimapFowCoordinateIsRevealed(x, y, z) end
 --- @return any
 function GetMinimapFowDiscoveryRatio() end
 
+--- Get the minimap type: 0 = Off, 1 = Regular, 2 = Expanded, 3 = Simple,
+--- @return any
+function GetMinimapType() end
+
 --- @return any
 function GetMissionFlag() end
 
@@ -8026,6 +8066,15 @@ function GetPedBoneCoords(ped, boneId, offsetX, offsetY, offsetZ) end
 --- @param boneId integer
 --- @return any
 function GetPedBoneIndex(ped, boneId) end
+
+--- Returns the bone matrix of the specified bone id. usefull for entity attachment
+--- @param ped integer
+--- @param boneId integer
+--- @return vector3
+--- @return vector3
+--- @return vector3
+--- @return vector3
+function GetPedBoneMatrix(ped, boneId) end
 
 --- Returns the hash of the weapon/model/object that killed the ped.
 --- @param ped integer
@@ -8709,6 +8758,13 @@ function GetPlayerPedIsFollowing(ped) end
 --- @return any
 function GetPlayerPedScriptIndex(player) end
 
+--- cpp const int ENET_PACKET_LOSS_SCALE = 65536; enum PeerStatistics { // PacketLoss will only update once every 10 seconds, use PacketLossEpoch if you want the time // since the last time the packet loss was updated. // the amount of packet loss the player has, needs to be scaled with PACKET_LOSS_SCALE PacketLoss = 0, // The variance in the packet loss PacketLossVariance = 1, // The time since the last packet update in ms, relative to the peers connection time PacketLossEpoch = 2, // The mean amount of time it takes for a packet to get to the client (ping) RoundTripTime = 3, // The variance in the round trip time RoundTripTimeVariance = 4, // Despite their name, these are only updated once every 5 seconds, you can get the last time this was updated with PacketThrottleEpoch // The last recorded round trip time of a packet LastRoundTripTime = 5, // The last round trip time variance LastRoundTripTimeVariance = 6, // The time since the last packet throttle update, relative to the peers connection time PacketThrottleEpoch = 7, }; These statistics only update once every 10 seconds.
+--- @param playerSrc integer
+--- @param peerStatistic integer
+--- @return any
+function GetPlayerPeerStatistics(playerSrc, peerStatistic) end
+
+--- See GET_PLAYER_PEER_STATISTICS if you want more detailed information, like packet loss, and packet/rtt variance
 --- @param playerSrc integer
 --- @return any
 function GetPlayerPing(playerSrc) end
@@ -9743,6 +9799,10 @@ function GetTrainSpeed(train) end
 --- @return any
 function GetTrainState(train) end
 
+--- @param train integer
+--- @return any
+function GetTrainTrackIndex(train) end
+
 --- @return any
 function GetTvChannel() end
 
@@ -10734,6 +10794,11 @@ function GetVehicleXenonLightsCustomColor(vehicle) end
 --- @return any
 function GetVehicleXmasSnowFactor() end
 
+--- A getter for SET_VISUAL_SETTING_FLOAT.
+--- @param name string
+--- @return any
+function GetVisualSettingFloat(name) end
+
 --- NativeDB Introduced: v2372
 --- @return any
 function GetWantedLevelParoleDuration() end
@@ -10862,6 +10927,11 @@ function GetWaypointBlipEnumId() end
 --- @param p1 integer
 --- @return any
 function GetWaypointDistanceAlongRoute(p0, p1) end
+
+--- A getter for the accuracy spread of a weapon.
+--- @param weaponHash integer
+--- @return any
+function GetWeaponAccuracySpread(weaponHash) end
 
 --- A getter for SET_WEAPON_ANIMATION_OVERRIDE.
 --- @param ped integer
@@ -12142,6 +12212,26 @@ function IsDisabledControlPressed(padIndex, control) end
 --- @param control integer
 --- @return any
 function IsDisabledControlReleased(padIndex, control) end
+
+--- Gets if the specified `rawKeyIndex` is pressed down, even if the key is disabled with DISABLE_RAW_KEY_THIS_FRAME. Virtual key codes can be found here
+--- @param rawKeyIndex integer
+--- @return any
+function IsDisabledRawKeyDown(rawKeyIndex) end
+
+--- Gets if the specified `rawKeyIndex` is pressed, even if the key is disabled with DISABLE_RAW_KEY_THIS_FRAME. Virtual key codes can be found here
+--- @param rawKeyIndex integer
+--- @return any
+function IsDisabledRawKeyPressed(rawKeyIndex) end
+
+--- Gets if the specified `rawKeyIndex` was released, even if the key is disabled with DISABLE_RAW_KEY_THIS_FRAME. Virtual key codes can be found here
+--- @param rawKeyIndex integer
+--- @return any
+function IsDisabledRawKeyReleased(rawKeyIndex) end
+
+--- Gets if the specified `rawKeyIndex` is up, even if the key is disabled with DISABLE_RAW_KEY_THIS_FRAME. Virtual key codes can be found here
+--- @param rawKeyIndex integer
+--- @return any
+function IsDisabledRawKeyUp(rawKeyIndex) end
 
 --- Example: DLC::IS_DLC_PRESENT($\mpbusiness2\); ($ = gethashkey) bruteforce these: 0xB119F6D 0x96F02EE6
 --- @param dlcHash integer
@@ -13667,22 +13757,22 @@ function IsRadioRetuning() end
 --- @return any
 function IsRadioStationFavourited(radioStation) end
 
---- Can be used to get state of raw key on keyboard. Virtual key codes can be found here
+--- Gets if the specified `rawKeyIndex` is pressed down on the keyboard. This will not be triggered if the key is disabled with DISABLE_RAW_KEY_THIS_FRAME Virtual key codes can be found here
 --- @param rawKeyIndex integer
 --- @return any
 function IsRawKeyDown(rawKeyIndex) end
 
---- Can be used to get state of raw key on keyboard. Virtual key codes can be found here
+--- Gets if the specified `rawKeyIndex` is pressed on the keyboard. This will not be triggered if the key is disabled with DISABLE_RAW_KEY_THIS_FRAME Virtual key codes can be found here
 --- @param rawKeyIndex integer
 --- @return any
 function IsRawKeyPressed(rawKeyIndex) end
 
---- Can be used to get release state of raw key on keyboard. Virtual key codes can be found here
+--- Gets if the specified `rawKeyIndex` was just released on the keyboard. This will not be triggered if the key is disabled with DISABLE_RAW_KEY_THIS_FRAME Virtual key codes can be found here
 --- @param rawKeyIndex integer
 --- @return any
 function IsRawKeyReleased(rawKeyIndex) end
 
---- Can be used to get state of raw key on keyboard. Virtual key codes can be found here
+--- Gets if the specified `rawKeyIndex` is up on the keyboard. This will not be triggered if the key is disabled with DISABLE_RAW_KEY_THIS_FRAME Virtual key codes can be found here
 --- @param rawKeyIndex integer
 --- @return any
 function IsRawKeyUp(rawKeyIndex) end
@@ -24128,6 +24218,14 @@ function RegisterPedheadshot3(ped) end
 --- @return any
 function RegisterPedheadshotTransparent(ped) end
 
+--- Registers a keymap that will be triggered whenever `rawKeyIndex` is pressed or released. `onKeyUp` and `onKeyDown` will not provide any arguments. ts function onStateChange();
+--- @param keymapName string
+--- @param onKeyDown function
+--- @param onKeyUp function
+--- @param rawKeyIndex integer
+--- @param canBeDisabled boolean
+function RegisterRawKeymap(keymapName, onKeyDown, onKeyUp, rawKeyIndex, canBeDisabled) end
+
 --- @param callbackType string
 --- @param callback function
 function RegisterRawNuiCallback(callbackType, callback) end
@@ -24277,6 +24375,11 @@ function ReleaseWeaponAudio() end
 
 --- Forces the map menu to reload.
 function ReloadMapMenu() end
+
+--- Remaps the keymap bound to `keymapName` to `newRawKeyIndex` Virtual key codes can be found here
+--- @param keymapName string
+--- @param newRawKeyIndex integer
+function RemapRawKeymap(keymapName, newRawKeyIndex) end
 
 --- NativeDB Added Parameter 1: Player player NativeDB Added Parameter 2: int a NativeDB Added Parameter 3: int b
 --- @return any
@@ -24558,6 +24661,10 @@ function RemoveStealthModeAsset(asset) end
 
 --- @param p0 string
 function RemoveTcmodifierOverride(p0) end
+
+--- Removes the specified texture and remove it from the ped. Unlike `0x6BEFAA907B076859` which only marks the texture as "can be reused" (and keeps it until will be reused), this function deletes it right away. Can fix some sync issues. `DOES_TEXTURE_EXIST` can be use to wait until fully unloaded by game lua RemoveTexture(textureId) while DoesTextureExist(textureId) do Wait(0) end
+--- @param textureId integer
+function RemoveTexture(textureId) end
 
 --- @param modifierName string
 function RemoveTimecycleModifier(modifierName) end
@@ -27042,7 +27149,7 @@ function SetEntityOnlyDamagedByPlayer(entity, toggle) end
 --- @param relationshipHash integer
 function SetEntityOnlyDamagedByRelationshipGroup(entity, p1, relationshipHash) end
 
---- cpp enum EntityOrphanMode { // Default, this will delete the entity when it isn't relevant to any players // NOTE: this *doesn't* mean when they're no longer in scope DeleteWhenNotRelevant = 0, // The entity will be deleted whenever its original owner disconnects // NOTE: if this is set when the entities original owner has already left it will be // marked for deletion (similar to just calling DELETE_ENTITY) DeleteOnOwnerDisconnect = 1, // The entity will never be deleted by the server when it does relevancy checks // you should only use this on entities that need to be relatively persistent KeepEntity = 2 } Sets what happens when the entity is orphaned and no longer has its original owner. **NOTE**: This native doesn't guarantee the persistence of the entity.
+--- cpp enum EntityOrphanMode { // Default, this will delete the entity when it isn't relevant to any players // NOTE: this *doesn't* mean when they're no longer in scope DeleteWhenNotRelevant = 0, // The entity will be deleted whenever its original owner disconnects // NOTE: if this is set when the entities original owner has already left it will be // marked for deletion (similar to just calling DELETE_ENTITY) DeleteOnOwnerDisconnect = 1, // The entity will never be deleted by the server when it does relevancy checks // you should only use this on entities that need to be relatively persistent KeepEntity = 2 } Sets what the server will do when the entity no longer has its original owner. By default the server will cleanup entities that it considers "no longer relevant". When used on trains, this native will recursively call onto all attached carriages. **NOTE**: When used with `KeepEntity` (2) this native only guarantees that the ***server*** will not delete the entity, client requests to delete the entity will still work perfectly fine.
 --- @param entity integer
 --- @param orphanMode integer
 function SetEntityOrphanMode(entity, orphanMode) end
@@ -27074,6 +27181,11 @@ function SetEntityQuaternion(entity, x, y, z, w) end
 --- @param entity integer
 --- @param toggle boolean
 function SetEntityRecordsCollisions(entity, toggle) end
+
+--- Enables or disables the owner check for the specified entity in network-synchronized scenes. When set to `false`, the entity cannot participate in synced scenes initiated by clients that do not own the entity. By default, this is `false` for all entities, meaning only the entity's owner can include it in networked synchronized scenes.
+--- @param entity integer
+--- @param allow boolean
+function SetEntityRemoteSyncedScenesAllowed(entity, allow) end
 
 --- @param entity integer
 --- @param toggle boolean
@@ -29622,13 +29734,13 @@ function SetPedToRagdoll(ped, time1, time2, ragdollType, p4, p5, p6) end
 
 --- p4/p5: Unusued in TU27 ### Ragdoll Types **0**: CTaskNMRelax **1**: CTaskNMScriptControl: Hardcoded not to work in networked environments. **Else**: CTaskNMBalance **This is the server-side RPC native equivalent of the client native SET_PED_TO_RAGDOLL.**
 --- @param ped integer
---- @param time1 integer
---- @param time2 integer
+--- @param minTime integer
+--- @param maxTime integer
 --- @param ragdollType integer
---- @param p4 boolean
---- @param p5 boolean
---- @param p6 boolean
-function SetPedToRagdoll(ped, time1, time2, ragdollType, p4, p5, p6) end
+--- @param bAbortIfInjured boolean
+--- @param bAbortIfDead boolean
+--- @param bForceScriptControl boolean
+function SetPedToRagdoll(ped, minTime, maxTime, ragdollType, bAbortIfInjured, bAbortIfDead, bForceScriptControl) end
 
 --- Return variable is never used in R*'s scripts. Not sure what p2 does. It seems like it would be a time judging by it's usage in R*'s scripts, but didn't seem to affect anything in my testings. x, y, and z are coordinates, most likely to where the ped will fall. p7 is probably the force of the fall, but untested, so I left the variable name the same. p8 to p13 are always 0f in R*'s scripts. (Simplified) Example of the usage of the function from R*'s scripts: ped::set_ped_to_ragdoll_with_fall(ped, 1500, 2000, 1, -entity::get_entity_forward_vector(ped), 1f, 0f, 0f, 0f, 0f, 0f, 0f);
 --- @param ped integer
@@ -29648,22 +29760,22 @@ function SetPedToRagdoll(ped, time1, time2, ragdollType, p4, p5, p6) end
 --- @return any
 function SetPedToRagdollWithFall(ped, time, p2, ragdollType, x, y, z, p7, p8, p9, p10, p11, p12, p13) end
 
---- Return variable is never used in R*'s scripts. Not sure what p2 does. It seems like it would be a time judging by it's usage in R*'s scripts, but didn't seem to affect anything in my testings. x, y, and z are coordinates, most likely to where the ped will fall. p7 is probably the force of the fall, but untested, so I left the variable name the same. p8 to p13 are always 0f in R*'s scripts. (Simplified) Example of the usage of the function from R*'s scripts: ped::set_ped_to_ragdoll_with_fall(ped, 1500, 2000, 1, -entity::get_entity_forward_vector(ped), 1f, 0f, 0f, 0f, 0f, 0f, 0f); **This is the server-side RPC native equivalent of the client native SET_PED_TO_RAGDOLL_WITH_FALL.**
+--- cpp enum eNMFallType { TYPE_FROM_HIGH = 0, TYPE_OVER_WALL = 1, TYPE_DOWN_STAIRS = 2, TYPE_DIE_TYPES = 3, TYPE_DIE_FROM_HIGH = 4, TYPE_DIE_OVER_WALL = 5, TYPE_DIE_DOWN_STAIRS = 6 } Return variable is never used in R*'s scripts. Not sure what p2 does. It seems like it would be a time judging by it's usage in R*'s scripts, but didn't seem to affect anything in my testings. x, y, and z are coordinates, most likely to where the ped will fall. p7 is probably the force of the fall, but untested, so I left the variable name the same. p8 to p13 are always 0f in R*'s scripts. (Simplified) Example of the usage of the function from R*'s scripts: ped::set_ped_to_ragdoll_with_fall(ped, 1500, 2000, 1, -entity::get_entity_forward_vector(ped), 1f, 0f, 0f, 0f, 0f, 0f, 0f); **This is the server-side RPC native equivalent of the client native SET_PED_TO_RAGDOLL_WITH_FALL.**
 --- @param ped integer
---- @param time integer
---- @param p2 integer
---- @param ragdollType integer
---- @param x number
---- @param y number
---- @param z number
---- @param p7 number
---- @param p8 number
---- @param p9 number
---- @param p10 number
---- @param p11 number
---- @param p12 number
---- @param p13 number
-function SetPedToRagdollWithFall(ped, time, p2, ragdollType, x, y, z, p7, p8, p9, p10, p11, p12, p13) end
+--- @param minTime integer
+--- @param maxTime integer
+--- @param nFallType integer
+--- @param dirX number
+--- @param dirY number
+--- @param dirZ number
+--- @param fGroundHeight number
+--- @param grab1X number
+--- @param grab1Y number
+--- @param grab1Z number
+--- @param grab2X number
+--- @param grab2Y number
+--- @param grab2Z number
+function SetPedToRagdollWithFall(ped, minTime, maxTime, nFallType, dirX, dirY, dirZ, fGroundHeight, grab1X, grab1Y, grab1Z, grab2X, grab2Y, grab2Z) end
 
 --- Purpose: The game's default values for these make shooting while traveling Left quite a bit slower than shooting while traveling right (This could be a game-balance thing?) Default Min: -45 Degrees Default Max: 135 Degrees \ ,- ~ ||~ - , , ' \ x x ' , , \ x x x , , \ x x , , \ x x , , \ x , , \ x , , \ x x , , \ x , , , ' ' - , \_ \_ \_ , ' \\ If the transition angle is within the shaded portion (x), there will be no transition(Quicker) The angle corresponds to where you are looking(North on the circle) vs. the heading of your Ped. Note: For some reason, You can set these values to whatever you'd like with this native, but keep in mind that the transitional spin is only clockwise for some reason. I'd personally recommend something like -135/135
 --- @param min number
@@ -32415,6 +32527,11 @@ function SetWaveQuadDirection(waveQuad, directionX, directionY) end
 
 --- This native removes the current waypoint from the map. Example: C#: Function.Call(Hash.SET_WAYPOINT_OFF); C++: HUD::SET_WAYPOINT_OFF();
 function SetWaypointOff() end
+
+--- A setter for the accuracy spread of a weapon.
+--- @param weaponHash integer
+--- @param spread number
+function SetWeaponAccuracySpread(weaponHash, spread) end
 
 --- Changes the selected ped aiming animation style, you can find the list of animations below. These are stored in the `weaponanimations.meta` file located in `Grand Theft Auto V\update\update.rpf\common\data\ai\weaponanimations.meta`. For Lua, it's best if you send the animation using compile-time jenkins hashes to avoid overhead. An example is shown down below. ### Animations cpp enum eWeaponAnimationOverrides { Ballistic = 0x5534A626, Default = 0xE4DF46D5, Franklin = 0x44C24694, Gang = 0xBC066B98, Michael = 0x55932F38, MP_F_Freemode = 0xACB10C83, Trevor = 0x2737D5AC, Hillbilly = 0x8503D409, Gang1H = 0x724A7AB7, FirstPerson = 0xEE38E8E0, FirstPersonAiming = 0xC76297A3, FirstPersonRNG = 0xA4FDD608, FirstPersonScope = 0x28117C22, FirstPersonMichael = 0xEAA2550B, FirstPersonMichaelAiming = 0x3E6FF30F, FirstPersonMichaelRNG = 0xB7A826C1, FirstPersonMichaelScope = 0xC554CF97, FirstPersonFranklin = 0xC407163A, FirstPersonFranklinAiming = 0x3D4B7B03, FirstPersonFranklinRNG = 0xBE79B0B4, FirstPersonFranklinScope = 0xAFEA6593, FirstPersonTrevor = 0xA65D5351, FirstPersonTrevorAiming = 0xF9BE8ED9, FirstPersonTrevorRNG = 0xD181ED09, FirstPersonTrevorScope = 0x34A67D6D, FirstPersonMPFemale = 0x8431583F, Fat = 0xC531A409, SuperFat = 0x529E5780, Female = 0x6D155A1B, GangFemale = 0x678ADF82, }
 --- @param ped integer
