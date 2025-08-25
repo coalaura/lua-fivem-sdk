@@ -1,5 +1,5 @@
 -- Auto generated
--- Last updated: Thu, 19 Jun 2025 00:45:39 GMT
+-- Last updated: Mon, 25 Aug 2025 11:09:37 GMT
 
 --- @param value number
 --- @return any
@@ -304,6 +304,21 @@ function AddExplosionWithUserVfx(x, y, z, explosionType, explosionFx, damageScal
 --- @param height number
 --- @return any
 function AddExtraCalmingQuad(xLow, yLow, xHigh, yHigh, height) end
+
+--- Adds new health config.
+--- @param configName string
+--- @param defaultHealth number
+--- @param defaultArmor number
+--- @param defaultEndurance number
+--- @param fatiguedHealthThreshold number
+--- @param injuredHealthThreshold number
+--- @param dyingHealthThreshold number
+--- @param hurtHealthThreshold number
+--- @param dogTakedownThreshold number
+--- @param writheFromBulletThreshold number
+--- @param meleeCardinalFatalAttack boolean
+--- @param invincible boolean
+function AddHealthConfig(configName, defaultHealth, defaultArmor, defaultEndurance, fatiguedHealthThreshold, injuredHealthThreshold, dyingHealthThreshold, hurtHealthThreshold, dogTakedownThreshold, writheFromBulletThreshold, meleeCardinalFatalAttack, invincible) end
 
 --- Returns the index of the newly created hospital spawn point. p3 might be radius?
 --- @param x number
@@ -5298,6 +5313,10 @@ function GetAllPeds() end
 --- @return any
 function GetAllRopes() end
 
+--- Returns all track junctions on the client The data returned adheres to the following structure: [1, 2, 4, 6, 69, 420]
+--- @return any
+function GetAllTrackJunctions() end
+
 --- Returns all registered vehicle model names, including non-dlc vehicles and custom vehicles in no particular order. **Example output** ["dubsta", "dubsta2", "dubsta3", "myverycoolcar", "sultan", "sultanrs", ...] This native will not return vehicles that are unregistered (i.e from a resource being stopped) during runtime.
 --- @return any
 function GetAllVehicleModels() end
@@ -5379,6 +5398,10 @@ function GetAnimInitialOffsetRotation(animDict, animName, x, y, z, xRot, yRot, z
 --- @param physicalAspect boolean
 --- @return any
 function GetAspectRatio(physicalAspect) end
+
+--- Gets the current aspect ratio lua local ratio = GetAspectRatio() print(string.format("%.2f", ratio))
+--- @return any
+function GetAspectRatio() end
 
 --- @return any
 function GetAudibleMusicTrackTextId() end
@@ -6608,7 +6631,7 @@ function GetFuelConsumptionRateMultiplier() end
 --- @return any
 function GetFuelConsumptionState() end
 
---- Returns the internal build number of the current game being executed. Possible values: * FiveM * 1604 * 2060 * 2189 * 2372 * 2545 * 2612 * 2699 * 2802 * 2944 * 3095 * 3258 * 3323 * 3407 * RedM * 1311 * 1355 * 1436 * 1491 * LibertyM * 43 * FXServer * 0
+--- Returns the internal build number of the current game being executed. Possible values: * FiveM * 1604 * 2060 * 2189 * 2372 * 2545 * 2612 * 2699 * 2802 * 2944 * 3095 * 3258 * 3323 * 3407 * 3570 * RedM * 1311 * 1355 * 1436 * 1491 * LibertyM * 43 * FXServer * 0
 --- @return any
 function GetGameBuildNumber() end
 
@@ -7542,6 +7565,11 @@ function GetNearestPlayerToEntity(entity) end
 --- @return any
 function GetNearestPlayerToEntityOnTeam(entity, team) end
 
+--- Gets the specific entity type (as an integer), which can be one of the following defined down below: #### FiveM: cpp enum eNetObjEntityType { Automobile = 0, Bike = 1, Boat = 2, Door = 3, Heli = 4, Object = 5, Ped = 6, Pickup = 7, PickupPlacement = 8, Plane = 9, Submarine = 10, Player = 11, Trailer = 12, Train = 13 }; #### RedM: cpp enum eNetObjEntityType { Animal = 0, Automobile = 1, Bike = 2, Boat = 3, Door = 4, Heli = 5, Object = 6, Ped = 7, Pickup = 8, PickupPlacement = 9, Plane = 10, Submarine = 11, Player = 12, Trailer = 13, Train = 14, DraftVeh = 15, StatsTracker = 16, PropSet = 17, AnimScene = 18, GroupScenario = 19, Herd = 20, Horse = 21, WorldState = 22, WorldProjectile = 23, Incident = 24, Guardzone = 25, PedGroup = 26, CombatDirector = 27, PedSharedTargeting = 28, Persistent = 29 };
+--- @param entity integer
+--- @return any
+function GetNetTypeFromEntity(entity) end
+
 --- @param soundId integer
 --- @return any
 function GetNetworkIdFromSoundId(soundId) end
@@ -8360,6 +8388,11 @@ function GetPedMaxHealth(ped) end
 --- @param ped integer
 --- @return any
 function GetPedMaxHealth(ped) end
+
+--- Gets a ped model's health config.
+--- @param modelHash integer
+--- @return any
+function GetPedModelHealthConfig(modelHash) end
 
 --- Gets a ped model's personality type.
 --- @param modelHash integer
@@ -9751,6 +9784,10 @@ function GetTrackNodeCoords(trackIndex, trackNode) end
 --- @return any
 function GetTrackNodeCount(trackIndex) end
 
+--- @param train integer
+--- @return any
+function GetTrainBackwardCarriage(train) end
+
 --- Corrected p1. it's basically the 'carriage/trailer number'. So if the train has 3 trailers you'd call the native once with a var or 3 times with 1, 2, 3.
 --- @param train integer
 --- @param trailerNumber integer
@@ -9789,6 +9826,10 @@ function GetTrainDoorCount(train) end
 --- @param doorIndex integer
 --- @return any
 function GetTrainDoorOpenRatio(train, doorIndex) end
+
+--- @param train integer
+--- @return any
+function GetTrainForwardCarriage(train) end
 
 --- Gets the speed the train is currently going.
 --- @param train integer
@@ -14113,6 +14154,10 @@ function IsTrackEnabled(track) end
 --- @return any
 function IsTrackSwitchedOff(track) end
 
+--- @param train integer
+--- @return any
+function IsTrainCaboose(train) end
+
 --- @param vehicle integer
 --- @param seatIndex integer
 --- @return any
@@ -14396,6 +14441,12 @@ function IsVehicleWanted(vehicle) end
 --- @param owner integer
 --- @return any
 function IsVehicleWeaponDisabled(weaponHash, vehicle, owner) end
+
+--- Getter for BREAK_OFF_VEHICLE_WHEEL.
+--- @param vehicle integer
+--- @param wheelIndex integer
+--- @return any
+function IsVehicleWheelBrokenOff(vehicle, wheelIndex) end
 
 --- cpp enum eWindowId { VEH_EXT_WINDOW_LF = 0, VEH_EXT_WINDOW_RF = 1, VEH_EXT_WINDOW_LR = 2, VEH_EXT_WINDOW_RR = 3, VEH_EXT_WINDOW_LM = 4, VEH_EXT_WINDOW_RM = 5, VEH_EXT_WINDSCREEN = 6, VEH_EXT_WINDSCREEN_R = 7, }
 --- @param vehicle integer
@@ -23086,6 +23137,11 @@ function OverridePopGroups(path) end
 --- @param vehicleHash integer
 function OverridePopscheduleVehicleModel(scheduleId, vehicleHash) end
 
+--- Setting the state to true and a value between 0 and 2 will cause pedestrian vehicles to react accordingly to sirens. cpp enum Reactions { Left = 0, Right = 1, Stop = 2 }
+--- @param state boolean
+--- @param reaction integer
+function OverrideReactionToVehicleSiren(state, reaction) end
+
 --- @param p0 boolean
 --- @param p1 number
 --- @param p2 number
@@ -24511,6 +24567,10 @@ function RemoveFromItemset(p0, p1) end
 --- @param groupId integer
 function RemoveGroup(groupId) end
 
+--- Removes health config.
+--- @param configName string
+function RemoveHealthConfig(configName) end
+
 --- IPL list can be found here.
 --- @param iplName string
 function RemoveIpl(iplName) end
@@ -25042,6 +25102,9 @@ function ResetEditorValues() end
 
 --- @param entity integer
 function ResetEntityAlpha(entity) end
+
+--- This function undoes changes made by `SET_ENTITY_DRAW_OUTLINE_RENDER_TECHNIQUE`, restoring the original outline rendering behavior. The default render technique group is `unlit`.
+function ResetEntityDrawOutlineRenderTechnique() end
 
 function ResetExclusiveScenarioGroup() end
 
@@ -27026,6 +27089,10 @@ function SetEntityDrawOutline(entity, enabled) end
 --- @param alpha integer
 function SetEntityDrawOutlineColor(red, green, blue, alpha) end
 
+--- Sets the render technique for drawing an entity's outline. This function allows you to specify a technique group name to control how the entity's outline is rendered in the game. List of known technique group's: alt0 alt1 alt2 alt3 alt4 alt5 alt6 alt7 alt8 blit cube default geometry imposter imposterdeferred lightweight0 lightweight0CutOut lightweight0CutOutTint lightweight0WaterRefractionAlpha lightweight4 lightweight4CutOut lightweight4CutOutTint lightweight4WaterRefractionAlpha lightweight8 lightweight8CutOut lightweight8CutOutTint lightweight8WaterRefractionAlpha lightweightHighQuality0 lightweightHighQuality0CutOut lightweightHighQuality0WaterRefractionAlpha lightweightHighQuality4 lightweightHighQuality4CutOut lightweightHighQuality4WaterRefractionAlpha lightweightHighQuality8 lightweightHighQuality8CutOut lightweightHighQuality8WaterRefractionAlpha lightweightNoCapsule4 lightweightNoCapsule8 multilight tessellate ui unlit waterreflection waterreflectionalphaclip waterreflectionalphacliptint wdcascade
+--- @param techniqueGroup string
+function SetEntityDrawOutlineRenderTechnique(techniqueGroup) end
+
 --- Sets variant of shader that will be used to draw entity outline. Variants are: * **0**: Default value, gauss shader. * **1**: 2px wide solid color outline. * **2**: Fullscreen solid color except for entity.
 --- @param shader integer
 function SetEntityDrawOutlineShader(shader) end
@@ -27409,6 +27476,10 @@ function SetFocusEntity(entity) end
 --- @param offsetZ number
 function SetFocusPosAndVel(x, y, z, offsetX, offsetY, offsetZ) end
 
+--- This completely disables rendering of fog volumes (vfxfogvolumeinfo.ymt).
+--- @param state boolean
+function SetFogVolumeRenderDisabled(state) end
+
 --- Overrides the ped follow camera (not first person camera) with the specified camera. The game loads all camera metadata from `update/update.rpf/x64/data/metadata/cameras.ymt` and `x64a.rpf/data/metadata/cameras.ymt` with the ped follow cameras being of type `camFollowPedCameraMetadata`. | Follow Camera Names | |----------------------------------------------| | DEFAULT_FOLLOW_PED_CAMERA | | FOLLOW_PED_ATTACHED_TO_ROPE_CAMERA | | FOLLOW_PED_ON_EXILE1\_LADDER_CAMERA | | FOLLOW_PED_SKY_DIVING_CAMERA | | FOLLOW_PED_SKY_DIVING_FAMILY5\_CAMERA | | NIGHTCLUB_FOLLOW_PED_CAMERA | | FOLLOW_PED_INTIMIDATION_CAMERA | | FOLLOW_PED_IN_WATER_CAMERA | | FOLLOW_PED_PRONE_CAMERA | | FOLLOW_PED_ON_SEAT_CAMERA | | FOLLOW_PED_HANGING_UPSIDE_DOWN_CAMERA | | FOLLOW_PED_ATTACHED_TO_ROPE_CAMERA | | CUSTOM_TRANSITION_AFTER_WARP_SKY_DIVE_CAMERA | | FOLLOW_PED_ON_HORSE_CAMERA | | FOLLOW_PED_ON_LOUNGER_CAMERA | Other camera hashes (names not found yet) cpp // 0x5DBBFB6E // 0xA38DB056 // 0x16B702A3 // 0x41D72A2E
 --- @param camName string
 --- @param easeTime integer
@@ -27730,6 +27801,61 @@ function SetHdArea(x, y, z, radius) end
 --- @param b integer
 --- @param id integer
 function SetHeadBlendPaletteColor(ped, r, g, b, id) end
+
+--- Sets default armor value for specific health config.
+--- @param configName string
+--- @param newValue number
+function SetHealthConfigDefaultArmor(configName, newValue) end
+
+--- Sets default endurance value for specific health config.
+--- @param configName string
+--- @param newValue number
+function SetHealthConfigDefaultEndurance(configName, newValue) end
+
+--- Sets default health value for specific health config.
+--- @param configName string
+--- @param newValue number
+function SetHealthConfigDefaultHealth(configName, newValue) end
+
+--- Sets default dog takedown threshold value for specific health config.
+--- @param configName string
+--- @param newValue number
+function SetHealthConfigDogTakedownThreshold(configName, newValue) end
+
+--- Sets default dying health threshold value for specific health config.
+--- @param configName string
+--- @param newValue number
+function SetHealthConfigDyingThreshold(configName, newValue) end
+
+--- Sets default fatigued health threshold value for specific health config.
+--- @param configName string
+--- @param newValue number
+function SetHealthConfigFatiguedThreshold(configName, newValue) end
+
+--- Sets default hurt health threshold value for specific health config.
+--- @param configName string
+--- @param newValue number
+function SetHealthConfigHurtThreshold(configName, newValue) end
+
+--- Sets default injured health threshold value for specific health config.
+--- @param configName string
+--- @param newValue number
+function SetHealthConfigInjuredThreshold(configName, newValue) end
+
+--- Sets default invincible value for specific health config.
+--- @param configName string
+--- @param newValue boolean
+function SetHealthConfigInvincible(configName, newValue) end
+
+--- Sets default melee cardinal fatal attack value for specific health config.
+--- @param configName string
+--- @param newValue boolean
+function SetHealthConfigMeleeFatalAttack(configName, newValue) end
+
+--- Sets default writhe from bullet threshold value for specific health config.
+--- @param configName string
+--- @param newValue number
+function SetHealthConfigWritheFromBulletThreshold(configName, newValue) end
 
 --- @param health integer
 --- @param capacity integer
@@ -29390,6 +29516,11 @@ function SetPedMinGroundTimeForStungun(ped, minTimeInMs) end
 --- @param value number
 function SetPedMinMoveBlendRatio(ped, value) end
 
+--- Sets a ped model's health config. Takes effect only after setting player model with `SET_PLAYER_MODEL`.
+--- @param modelHash integer
+--- @param configName string
+function SetPedModelHealthConfig(modelHash, configName) end
+
 --- @param model integer
 --- @param toggle boolean
 function SetPedModelIsSuppressed(model, toggle) end
@@ -30445,6 +30576,10 @@ function SetRandomTrains(toggle) end
 function SetRandomVehicleDensityMultiplierThisFrame(multiplier) end
 
 function SetRandomWeatherType() end
+
+--- This completely disables pedestrian vehicles from reacting to sirens. They will not try to do any maneuver to evade.
+--- @param state boolean
+function SetReactionToVehicleWithSirenDisabled(state) end
 
 --- Lowers the vehicle's stance. Only works for vehicles that support this feature. NativeDB Introduced: v2372
 --- @param vehicle integer
@@ -32606,6 +32741,10 @@ function SetWeatherTypePersist(weatherType) end
 --- @param weatherType2 integer
 --- @param percentWeather2 number
 function SetWeatherTypeTransition(weatherType1, weatherType2, percentWeather2) end
+
+--- Modifies the radius scale used in the simulation of wet cloth physics. This affects how cloth behaves when wet, changing how it sticks or reacts to movement.
+--- @param scale number
+function SetWetClothPinRadiusScale(scale) end
 
 --- @param p0 boolean
 --- @param p1 integer
