@@ -1,5 +1,5 @@
 -- Auto generated
--- Last updated: Mon, 25 Aug 2025 11:09:37 GMT
+-- Last updated: Thu, 16 Oct 2025 19:20:16 GMT
 
 --- @param value number
 --- @return any
@@ -4108,6 +4108,9 @@ function DrawGlowSphere(posX, posY, posZ, radius, colorR, colorG, colorB, intens
 --- @param alpha integer
 function DrawInteractiveSprite(textureDict, textureName, screenX, screenY, width, height, heading, red, green, blue, alpha) end
 
+--- Draw the prepared light.
+function DrawLight() end
+
 --- @param posX number
 --- @param posY number
 --- @param posZ number
@@ -6528,6 +6531,14 @@ function GetExtraTimecycleModifierIndex() end
 --- @return any
 function GetFakeWantedLevel() end
 
+--- A getter for SET_FALL_DAMAGE_LAND_ON_FOOT_MULTIPLIER.
+--- @return any
+function GetFallDamageLandOnFootMultiplier() end
+
+--- A getter for SET_FALL_DAMAGE_MULTIPLIER.
+--- @return any
+function GetFallDamageMultiplier() end
+
 --- Gets a localized string literal from a label name. This is used to get the filename of the audio conversation associated with the provided label name.
 --- @param labelName string
 --- @return any
@@ -7265,6 +7276,10 @@ function GetJackTarget(ped) end
 --- @param entity integer
 --- @return any
 function GetKeyForEntityInRoom(entity) end
+
+--- A getter for SET_KILL_FALL_HEIGHT.
+--- @return any
+function GetKillFallHeight() end
 
 --- Landing gear states: 0: Deployed 1: Closing (Retracting) 3: Opening (Deploying) 4: Retracted 5: Broken Landing gear state 2 is never used.
 --- @param vehicle integer
@@ -8712,6 +8727,10 @@ function GetPlayerInvincible(playerSrc) end
 --- @param player integer
 --- @return any
 function GetPlayerInvincible_2(player) end
+
+--- A getter for SET_PLAYER_KILL_FALL_HEIGHT.
+--- @return any
+function GetPlayerKillFallHeight() end
 
 --- @param playerSrc integer
 --- @return any
@@ -24044,6 +24063,18 @@ function PreloadVehicleMod(p0, modType, p2) end
 --- @return any
 function PrepareAlarm(alarmName) end
 
+--- Create a new light with specified type, flags, position, color, and intensity.
+--- @param lightType integer
+--- @param flags integer
+--- @param x number
+--- @param y number
+--- @param z number
+--- @param r integer
+--- @param g integer
+--- @param b integer
+--- @param intensity number
+function PrepareLight(lightType, flags, x, y, z, r, g, b, intensity) end
+
 --- Prepares the specified music event. Preparing it in advance will preload any required data so that it's ready to play immediately.
 --- @param eventName string
 --- @return any
@@ -27366,6 +27397,14 @@ function SetFakePausemapPlayerPositionThisFrame(x, y) end
 --- @param fakeWantedLevel integer
 function SetFakeWantedLevel(fakeWantedLevel) end
 
+--- A setter for GET_FALL_DAMAGE_LAND_ON_FOOT_MULTIPLIER.
+--- @param multiplier number
+function SetFallDamageLandOnFootMultiplier(multiplier) end
+
+--- A setter for GET_FALL_DAMAGE_MULTIPLIER.
+--- @param multiplier number
+function SetFallDamageMultiplier(multiplier) end
+
 --- @param toggle boolean
 function SetFarDrawVehicles(toggle) end
 
@@ -28113,6 +28152,10 @@ function SetIslandEnabled(islandName, toggle) end
 --- @param hide boolean
 function SetKeyMappingHideResources(hide) end
 
+--- A setter for GET_KILL_FALL_HEIGHT.
+--- @param height number
+function SetKillFallHeight(height) end
+
 --- @param vehicle integer
 function SetLastDrivenVehicle(vehicle) end
 
@@ -28120,8 +28163,136 @@ function SetLastDrivenVehicle(vehicle) end
 --- @param toggle boolean
 function SetLaunchControlEnabled(toggle) end
 
+--- Set the alpha transparency of the light.
+--- @param alpha number
+function SetLightAlpha(alpha) end
+
+--- Set ambient occlusion (AO) parameters for a specified light.
+--- @param intensity number
+--- @param radius number
+--- @param bias number
+--- @param intensity2 number
+function SetLightAo(intensity, radius, bias, intensity2) end
+
+--- Set the capsule size of a specified light.
+--- @param size number
+function SetLightCapsuleSize(size) end
+
+--- Set the clip rectangle for a created light.
+--- @param x integer
+--- @param y integer
+--- @param width integer
+--- @param height integer
+function SetLightClipRect(x, y, width, height) end
+
+--- Set the color of a specified light.
+--- @param r integer
+--- @param g integer
+--- @param b integer
+function SetLightColor(r, g, b) end
+
+--- Set the inner and outer cone angles of a specified light.
+--- @param innerConeAngle number
+--- @param outerConeAngle number
+function SetLightCone(innerConeAngle, outerConeAngle) end
+
+--- Set the world coordinates of a specified light.
+--- @param x number
+--- @param y number
+--- @param z number
+function SetLightCoords(x, y, z) end
+
+--- Set the forward and tangent direction vectors for an existing light, allowing control over its orientation (useful for spotlights and directional lights).
+--- @param xDir number
+--- @param yDir number
+--- @param zDir number
+--- @param xTanDir number
+--- @param yTanDir number
+--- @param zTanDir number
+function SetLightDirection(xDir, yDir, zDir, xTanDir, yTanDir, zTanDir) end
+
+--- Set additional configuration flags for an existing light
+--- @param extraFlags integer
+function SetLightExtraflags(extraFlags) end
+
+--- Set the fade distance.
+--- @param fadeDistance integer
+function SetLightFadeDistance(fadeDistance) end
+
+--- Adjust the falloff parameter for an existing light, affecting how light intensity decreases over distance.
+--- @param falloff number
+function SetLightFalloff(falloff) end
+
+--- Set or update specific flags for a created light to control its behavior or properties.
+--- @param flags integer
+function SetLightFlags(flags) end
+
+--- Set the headlight properties of a created light, adjusting its intensity and range.
+--- @param intensity number
+--- @param range number
+function SetLightHeadlight(intensity, range) end
+
+--- Set the intensity of an existing light.
+--- @param intensity number
+function SetLightIntensity(intensity) end
+
+--- Set the interior and room where the light should be active.
+--- @param interiorId integer
+--- @param isPortal boolean
+--- @param roomIndex integer
+function SetLightInterior(interiorId, isPortal, roomIndex) end
+
+--- Set the plane parameters for a light.
+--- @param x number
+--- @param y number
+--- @param z number
+--- @param w number
+function SetLightPlane(x, y, z, w) end
+
+--- Set the radius of a created light.
+--- @param radius number
+function SetLightRadius(radius) end
+
 --- @param distance number
 function SetLightsCutoffDistanceTweak(distance) end
+
+--- Set the shadow details for a created light.
+--- @param shadowFlags integer
+--- @param shadowDistance number
+--- @param shadowFade number
+--- @param shadowDepthBiasScale number
+function SetLightShadowDetails(shadowFlags, shadowDistance, shadowFade, shadowDepthBiasScale) end
+
+--- Set the fade distance for the shadows of a created light.
+--- @param fadeDistance integer
+function SetLightShadowFadeDistance(fadeDistance) end
+
+--- Set the specular fade distance for a created light.
+--- @param fadeDistance integer
+function SetLightSpecularFadeDistance(fadeDistance) end
+
+--- Assign a texture to an existing light source, allowing custom light shapes or patterns using textures from streaming assets.
+--- @param textureDict string
+--- @param textureHash integer
+function SetLightTexture(textureDict, textureHash) end
+
+--- Change the light type of a already created light. Certain light type needs more configurations to work properly (Like direction, flags or size)
+--- @param lightType integer
+function SetLightType(lightType) end
+
+--- Set volumetric light properties for an existing light, enabling custom volumetric effects such as fog-like glow.
+--- @param volIntensity number
+--- @param volSizeScale number
+--- @param r number
+--- @param g number
+--- @param b number
+--- @param i number
+--- @param outerExponent number
+function SetLightVolumeDetails(volIntensity, volSizeScale, r, g, b, i, outerExponent) end
+
+--- Set the fade distance for volumetric lightingn.
+--- @param volumetricFadeDistance integer
+function SetLightVolumetricFadeDistance(volumetricFadeDistance) end
 
 --- Formerly incorrectly named `USE_PLAYER_COLOUR_INSTEAD_OF_TEAM_COLOUR` due to incorrect treatment of console vs. PC native registration. Native name guessed through ordering. NativeDB Added Parameter 2: BOOL p1
 --- @param toggle boolean
@@ -29354,7 +29525,7 @@ function SetPedHasAiBlipWithColor(ped, hasCone, color) end
 --- @param isParent boolean
 function SetPedHeadBlendData(ped, shapeFirstID, shapeSecondID, shapeThirdID, skinFirstID, skinSecondID, skinThirdID, shapeMix, skinMix, thirdMix, isParent) end
 
---- For more info please refer to this topic. **Other information:** IDs start at zero and go Male Non-DLC, Female Non-DLC, Male DLC, and Female DLC.</br> This native function is often called prior to calling natives such as: * `SetPedHairColor` * `SetPedHeadOverlayColor` * `SetPedHeadOverlay` * `SetPedFaceFeature` **This is the server-side RPC native equivalent of the client native SET_PED_HEAD_BLEND_DATA.**
+--- For more info and the list of faceIDs please refer to this topic. Note that the Skin and Shape IDs are shared. This native will use this same list for both Skin and Shape IDs. **Other information:** IDs start at zero and go Male Non-DLC, Female Non-DLC, Male DLC, and Female DLC. This native function is often called prior to calling natives such as: * `SetPedHairColor` * `SetPedHeadOverlayColor` * `SetPedHeadOverlay` * `SetPedFaceFeature` **This is the server-side RPC native equivalent of the client native SET_PED_HEAD_BLEND_DATA.**
 --- @param ped integer
 --- @param shapeFirstID integer
 --- @param shapeSecondID integer
@@ -30194,6 +30365,10 @@ function SetPlayerIsInAnimalForm(toggle) end
 --- If toggle is true, hides special ability bar / character name in the pause menu If toggle is false, shows special ability bar / character name in the pause menu SET_PLAYER_*
 --- @param toggle boolean
 function SetPlayerIsInDirectorMode(toggle) end
+
+--- A setter for GET_PLAYER_KILL_FALL_HEIGHT.
+--- @param height number
+function SetPlayerKillFallHeight(height) end
 
 --- @param player integer
 --- @param toggle boolean
