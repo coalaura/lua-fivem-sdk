@@ -1,5 +1,5 @@
 -- Auto generated
--- Last updated: Thu, 16 Oct 2025 19:20:16 GMT
+-- Last updated: Thu, 11 Dec 2025 02:48:47 GMT
 
 --- @param value number
 --- @return any
@@ -5624,6 +5624,11 @@ function GetCauseOfMostRecentForceCleanup() end
 --- @return any
 function GetCgoffset(entity) end
 
+--- Returns whether a specific client configuration flag is currently enabled. You can find a list of configuration flags in `SET_CLIENT_CONFIG_BOOL`.
+--- @param flagIndex integer
+--- @return any
+function GetClientConfigBool(flagIndex) end
+
 --- @param p0 integer
 --- @return any
 function GetClipSetForScriptedGunTask(p0) end
@@ -7538,6 +7543,11 @@ function GetModTextLabel(vehicle, modType, modValue) end
 --- @return any
 function GetMount(ped) end
 
+--- returns the entity of the mount the ped is on
+--- @param ped integer
+--- @return any
+function GetMount(ped) end
+
 --- @return any
 function GetMusicPlaytime() end
 
@@ -8507,6 +8517,10 @@ function GetPedRelationshipGroupHash(ped) end
 --- @return any
 function GetPedResetFlag(ped, flagId) end
 
+--- @param ped integer
+--- @return any
+function GetPedScale(ped) end
+
 --- Gets the script task command currently assigned to the ped.
 --- @param ped integer
 --- @return any
@@ -8610,6 +8624,14 @@ function GetPedWeaponTintIndex(ped, weaponHash) end
 --- @param weaponSlot integer
 --- @return any
 function GetPedWeapontypeInSlot(ped, weaponSlot) end
+
+--- @param ped integer
+--- @return any
+function GetPedWetness(ped) end
+
+--- @param ped integer
+--- @return any
+function GetPedWetnessHeight(ped) end
 
 --- @param ped integer
 --- @return any
@@ -9376,6 +9398,11 @@ function GetScriptTaskStatus(ped, taskHash) end
 --- @param ped integer
 --- @return any
 function GetSeatPedIsTryingToEnter(ped) end
+
+--- returns the seat index of the specified ped, if not seated or not in vehicle returns -3 just client natives
+--- @param ped integer
+--- @return any
+function GetSeatPedIsUsing(ped) end
 
 --- @param ped integer
 --- @return any
@@ -13201,6 +13228,11 @@ function IsPedInAnyTrain(ped) end
 --- @return any
 function IsPedInAnyVehicle(ped, atGetIn) end
 
+--- returns true if the specified ped is in any vehicle
+--- @param ped integer
+--- @return any
+function IsPedInAnyVehicle(ped) end
+
 --- Examines whether the ped is engaged in combat; when given a target ped index, it confirms if the ped is actively fighting the specified target, returning true if engaged and false if not.
 --- @param ped integer
 --- @param target integer
@@ -13259,6 +13291,12 @@ function IsPedInParachuteFreeFall(ped) end
 --- @return any
 function IsPedInVehicle(ped, vehicle, atGetIn) end
 
+--- returns true if the specified ped is in the speficied vehicle
+--- @param ped integer
+--- @param vehicle integer
+--- @return any
+function IsPedInVehicle(ped, vehicle) end
+
 --- This native checks if a ped is on the ground, in pain from a (gunshot) wound.
 --- @param ped integer
 --- @return any
@@ -13303,6 +13341,11 @@ function IsPedOnAnyBike(ped) end
 function IsPedOnFoot(ped) end
 
 --- Same function call as PED::GET_MOUNT, aka just returns 0
+--- @param ped integer
+--- @return any
+function IsPedOnMount(ped) end
+
+--- returns true if the specified ped is on a mount
 --- @param ped integer
 --- @return any
 function IsPedOnMount(ped) end
@@ -26523,6 +26566,11 @@ function SetCinematicModeActive(toggle) end
 
 function SetCinematicNewsChannelActiveThisUpdate() end
 
+--- cpp enum ClientConfigFlag { WeaponsNoAutoReload = 0, UIVisibleWhenDead = 1, DisableDeathAudioScene = 2 } Sets the value of a client configuration flag. This native allows enabling or disabling specific one-time client-side features.
+--- @param flagIndex integer
+--- @param enabled boolean
+function SetClientConfigBool(flagIndex, enabled) end
+
 --- @param day integer
 --- @param month integer
 --- @param year integer
@@ -30754,7 +30802,7 @@ function SetRandomWeatherType() end
 
 --- This completely disables pedestrian vehicles from reacting to sirens. They will not try to do any maneuver to evade.
 --- @param state boolean
-function SetReactionToVehicleWithSirenDisabled(state) end
+function SetReactionToVehicleSirenDisabled(state) end
 
 --- Lowers the vehicle's stance. Only works for vehicles that support this feature. NativeDB Introduced: v2372
 --- @param vehicle integer
