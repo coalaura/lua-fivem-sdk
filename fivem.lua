@@ -1,5 +1,5 @@
 -- Auto generated
--- Last updated: Thu, 11 Dec 2025 02:48:47 GMT
+-- Last updated: Thu, 08 Jan 2026 16:04:01 GMT
 
 --- @param value number
 --- @return any
@@ -10420,24 +10420,24 @@ function GetVehicleMod(vehicle, modType) end
 --- @param vehicle integer
 --- @return integer
 --- @return integer
+--- @return integer
+function GetVehicleModColor_1(vehicle) end
+
+--- returns a string which is the codename of the vehicle's currently selected primary color p1 is always 0
+--- @param vehicle integer
+--- @param p1 boolean
+--- @return any
+function GetVehicleModColor_1Name(vehicle, p1) end
+
+--- @param vehicle integer
+--- @return integer
+--- @return integer
 function GetVehicleModColor_2(vehicle) end
 
 --- returns a string which is the codename of the vehicle's currently selected secondary color
 --- @param vehicle integer
 --- @return any
 function GetVehicleModColor_2Name(vehicle) end
-
---- @param vehicle integer
---- @return integer
---- @return integer
---- @return integer
-function GetVehicleModColor1(vehicle) end
-
---- returns a string which is the codename of the vehicle's currently selected primary color p1 is always 0
---- @param vehicle integer
---- @param p1 boolean
---- @return any
-function GetVehicleModColor1Name(vehicle, p1) end
 
 --- Returns the acceleration of the specified model.
 --- @param modelHash integer
@@ -32240,18 +32240,18 @@ function SetVehicleMaxSpeed(vehicle, speed) end
 --- @param customTires boolean
 function SetVehicleMod(vehicle, modType, modIndex, customTires) end
 
---- Changes the secondary paint type and color paintType: 0: Normal 1: Metallic 2: Pearl 3: Matte 4: Metal 5: Chrome color: number of the color
---- @param vehicle integer
---- @param paintType integer
---- @param color integer
-function SetVehicleModColor_2(vehicle, paintType, color) end
-
 --- paintType: 0: Normal 1: Metallic 2: Pearl 3: Matte 4: Metal 5: Chrome color: number of the color. p3 seems to always be 0.
 --- @param vehicle integer
 --- @param paintType integer
 --- @param color integer
 --- @param pearlescentColor integer
-function SetVehicleModColor1(vehicle, paintType, color, pearlescentColor) end
+function SetVehicleModColor_1(vehicle, paintType, color, pearlescentColor) end
+
+--- Changes the secondary paint type and color paintType: 0: Normal 1: Metallic 2: Pearl 3: Matte 4: Metal 5: Chrome color: number of the color
+--- @param vehicle integer
+--- @param paintType integer
+--- @param color integer
+function SetVehicleModColor_2(vehicle, paintType, color) end
 
 --- seems to make the vehicle stop spawning naturally in traffic. Here's an essential example: VEHICLE::SET_VEHICLE_MODEL_IS_SUPPRESSED(GAMEPLAY::GET_HASH_KEY("taco"), true);
 --- @param model integer
