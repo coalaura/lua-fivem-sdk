@@ -1,5 +1,5 @@
 -- Auto generated
--- Last updated: Thu, 08 Jan 2026 16:04:01 GMT
+-- Last updated: Wed, 18 Feb 2026 18:04:09 GMT
 
 --- @param value number
 --- @return any
@@ -96,7 +96,7 @@ function AddAuthorizedParachutePackModel(modelNameHash) end
 --- @return any
 function AddBlipForArea(x, y, z, width, height) end
 
---- Adds a rectangular blip for the specified coordinates/area. It is recommended to use SET_BLIP_ROTATION and SET_BLIP_COLOUR to make the blip not rotate along with the camera. By default, the blip will show as a *regular* blip with the specified color/sprite if it is outside of the minimap view. Example image: minimap big map (Native name is *likely* to actually be ADD_BLIP_FOR_AREA, but due to the usual reasons this can't be confirmed) **This is the server-side RPC native equivalent of the client native \_ADD_BLIP_FOR_AREA.**
+--- Adds a rectangular blip for the specified coordinates/area. It is recommended to use SET_BLIP_ROTATION and SET_BLIP_COLOUR to make the blip not rotate along with the camera. By default, the blip will show as a *regular* blip with the specified color/sprite if it is outside of the minimap view. (Native name is *likely* to actually be ADD_BLIP_FOR_AREA, but due to the usual reasons this can't be confirmed) **This is the server-side RPC native equivalent of the client native \_ADD_BLIP_FOR_AREA.**
 --- @param x number
 --- @param y number
 --- @param z number
@@ -6647,7 +6647,7 @@ function GetFuelConsumptionRateMultiplier() end
 --- @return any
 function GetFuelConsumptionState() end
 
---- Returns the internal build number of the current game being executed. Possible values: * FiveM * 1604 * 2060 * 2189 * 2372 * 2545 * 2612 * 2699 * 2802 * 2944 * 3095 * 3258 * 3323 * 3407 * 3570 * RedM * 1311 * 1355 * 1436 * 1491 * LibertyM * 43 * FXServer * 0
+--- Returns the internal build number of the current game being executed. Possible values: * FiveM * 1604 * 2060 * 2189 * 2372 * 2545 * 2612 * 2699 * 2802 * 2944 * 3095 * 3258 * 3323 * 3407 * 3570 * 3751 * RedM * 1311 * 1355 * 1436 * 1491 * LibertyM * 43 * FXServer * 0
 --- @return any
 function GetGameBuildNumber() end
 
@@ -7543,7 +7543,6 @@ function GetModTextLabel(vehicle, modType, modValue) end
 --- @return any
 function GetMount(ped) end
 
---- returns the entity of the mount the ped is on
 --- @param ped integer
 --- @return any
 function GetMount(ped) end
@@ -9399,7 +9398,6 @@ function GetScriptTaskStatus(ped, taskHash) end
 --- @return any
 function GetSeatPedIsTryingToEnter(ped) end
 
---- returns the seat index of the specified ped, if not seated or not in vehicle returns -3 just client natives
 --- @param ped integer
 --- @return any
 function GetSeatPedIsUsing(ped) end
@@ -13228,7 +13226,6 @@ function IsPedInAnyTrain(ped) end
 --- @return any
 function IsPedInAnyVehicle(ped, atGetIn) end
 
---- returns true if the specified ped is in any vehicle
 --- @param ped integer
 --- @return any
 function IsPedInAnyVehicle(ped) end
@@ -13291,7 +13288,6 @@ function IsPedInParachuteFreeFall(ped) end
 --- @return any
 function IsPedInVehicle(ped, vehicle, atGetIn) end
 
---- returns true if the specified ped is in the speficied vehicle
 --- @param ped integer
 --- @param vehicle integer
 --- @return any
@@ -13345,7 +13341,6 @@ function IsPedOnFoot(ped) end
 --- @return any
 function IsPedOnMount(ped) end
 
---- returns true if the specified ped is on a mount
 --- @param ped integer
 --- @return any
 function IsPedOnMount(ped) end
@@ -26566,7 +26561,7 @@ function SetCinematicModeActive(toggle) end
 
 function SetCinematicNewsChannelActiveThisUpdate() end
 
---- cpp enum ClientConfigFlag { WeaponsNoAutoReload = 0, UIVisibleWhenDead = 1, DisableDeathAudioScene = 2 } Sets the value of a client configuration flag. This native allows enabling or disabling specific one-time client-side features.
+--- cpp enum ClientConfigFlag { WeaponsNoAutoReload = 0, UIVisibleWhenDead = 1, DisableDeathAudioScene = 2, DisableRemoteAttachments = 3 } Sets the value of a client configuration flag. This native allows enabling or disabling specific one-time client-side features.
 --- @param flagIndex integer
 --- @param enabled boolean
 function SetClientConfigBool(flagIndex, enabled) end
@@ -28367,7 +28362,7 @@ function SetLocalPlayerVisibleLocally(p0) end
 --- @param color integer
 function SetMainPlayerBlipColour(color) end
 
---- Sets whether or not `SHUTDOWN_LOADING_SCREEN` automatically shuts down the NUI frame for the loading screen. If this is enabled, you will have to manually invoke `SHUTDOWN_LOADING_SCREEN_NUI` whenever you want to hide the NUI loading screen.
+--- **Note**: This native is deprecated and doesn't work anymore. Use loadscreen_manual_shutdown in the fxmanifest.lua instead.
 --- @param manualShutdown boolean
 function SetManualShutdownLoadingScreenNui(manualShutdown) end
 
