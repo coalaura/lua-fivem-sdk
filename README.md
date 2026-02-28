@@ -15,28 +15,13 @@ This project provides fully documented Lua type definitions for the FiveM/CFX fr
 ## Features
 
 - Complete coverage of FiveM/CFX native functions and APIs
-- Detailed annotations using LuaLS-compatible comment syntax
+- Detailed annotations using Lugo-compatible comment syntax
 - Proper type definitions for vectors, matrices, and other complex types
 - Organized by functional categories (client, server, shared)
 
 ## Usage
 
-### With Lua Language Server ([LuaLS](https://luals.github.io/))
-
-1. Add this repository to your project
-2. Configure your `.luarc.json` to include these definition files
-3. Enjoy enhanced autocomplete and type checking in your editor
-
-Example `.luarc.json` configuration:
-
-```json
-{
-    "runtime.version": "Lua 5.4",
-    "workspace.library": [
-        "./path-to-these-definitions"
-    ]
-}
-```
+With Lua Language Server ([Lugo](https://github.com/coalaura/lugo))
 
 ### Supported Libraries
 
