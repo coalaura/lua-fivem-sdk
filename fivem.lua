@@ -1,5 +1,7 @@
+---@meta
+
 -- Auto generated
--- Last updated: Wed, 18 Feb 2026 18:04:09 GMT
+-- Last updated: Fri, 06 Mar 2026 16:38:40 GMT
 
 --- @param value number
 --- @return any
