@@ -1,3 +1,5 @@
+---@meta
+
 ---Registers an event handler.
 ---@param eventName string # The name of the event to listen for.
 ---@param handler function # The function to be called when the event is triggered.
