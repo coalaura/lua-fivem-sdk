@@ -1,7 +1,7 @@
 ---@meta
 
 -- Auto generated
--- Last updated: Wed, 25 Mar 2026 19:09:13 GMT
+-- Last updated: Fri, 17 Apr 2026 18:30:27 GMT
 
 --- **Namespace:** `MISC`
 ---@param value number
@@ -11969,6 +11969,7 @@ function GetFuelConsumptionState() end
 ---     *   3407
 ---     *   3570
 ---     *   3751
+---     *   3788
 --- *   RedM
 ---     *   1311
 ---     *   1355
@@ -16102,9 +16103,9 @@ function GetPlayerHealthRechargeLimit(player) end
 ---
 --- To get a specific type of identifier, use [GET_PLAYER_IDENTIFIER_BY_TYPE](#\_0xA61C8FC6)
 ---@param playerSrc integer+
----@param identiferIndex integer+
+---@param identifierIndex integer+
 ---@return string Returns the identifier at the specific index, if out of bounds returns `null`
-function GetPlayerIdentifier(playerSrc, identiferIndex) end
+function GetPlayerIdentifier(playerSrc, identifierIndex) end
 
 --- **Namespace:** `CFX`
 ---
